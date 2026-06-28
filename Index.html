@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifa Beneficente - Formatura Medicina</title>
+    <style>
+        /* ================= ESTILOS (CSS) ================= */
+        :root {
+            --primary: #00796b; 
+            --secondary: #004d40;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* ================= SEÇÃO DE FOTOS ================= */
+        .beneficiados-card {
+            text-align: center;
+        }
+
+        .fotos-container {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .medico {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Estilo da foto redonda */
+        .medico img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            margin-bottom: 10px;
+            background-color: #eee;
+        }
+
+        .medico h3 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+
+        .descricao {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        /* ================= BARRA DE PROGRESSO ================= */
+        .progress-container {
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            height: 25px;
+            width: 100%;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            background-color: #ff9800;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .goal-text {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        /* ================= FORMULÁRIO E BOTÕES ================= */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            width: 100%;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover { background-color: var(--secondary); }
+        button:disabled { background-color: #999; cursor: not-allowed; }
+
+        /* ================= LISTA PÚBLICA ================= */
+        .public-list {
+            list-style: none;
+            padding: 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .public-list li {
+            background: #e0f2f1;
+            margin-bottom: 0.5rem;
+            padding: 1rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--primary);
+        }
+
+        .numbers-badge {
+            background: var(--primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* ================= MODAL (POP-UP) ================= */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .chave-pix {
+            background: #f1f1f1;
+            padding: 10px;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            margin: 15px 0;
+            word-break: break-all;
+            color: #333;
+        }
+
+        .btn-confirmar { background-color: #4caf50; margin-bottom: 10px; }
+        .btn-confirmar:hover { background-color: #388e3c; }
+
+        .btn-cancelar { background-color: #d32f2f; }
+        .btn-cancelar:hover { background-color: #b71c1c; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Rifa Beneficente - Rumo à Formatura</h1>
+        <p>Valor por número: <strong>R$ 10,00</strong></p>
+    </header>
+
+    <div class="container">
+        
+        <!-- ================= SEÇÃO DE FOTOS DOS MÉDICOS ================= -->
+        <div class="card beneficiados-card">
+            <h2>Conheça os Futuros Médicos</h2>
+            <p class="descricao">
+                Toda a arrecadação desta rifa será destinada à conclusão do nosso curso de <strong>Medicina</strong>. 
+                Agradecemos de coração a cada um de vocês por nos ajudarem a realizar esse grande sonho!
+            </p>
+            <div class="fotos-container">
+                <div class="medico">
+                    <!-- COLOQUE A FOTO DO MARLON AQUI -->
+                    <!-- Exemplo: Se a foto estiver na mesma pasta com o nome "marlon.jpg", mude o src para src="marlon.jpg" -->
+                    <img src="https://via.placeholder.com/200/00796b/ffffff?text=Foto+Marlon" alt="Marlon">
+                    <h3>Marlon</h3>
+                </div>
+                <div class="medico">
+                    <!-- COLOQUE A FOTO DO MAIRON AQUI -->
+                    <img src="https://via.placeholder.com/200/00796b/ffffff?text=Foto+Mairon" alt="Mairon">
+                    <h3>Mairon</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SEÇÃO DE PROGRESSO ================= -->
+        <div class="card">
+            <h2>Meta de Arrecadação</h2>
+            <div class="goal-text">
+                <span id="arrecadado-texto">Arrecadado: Carregando...</span>
+                <span>Meta: R$ 40.000,00</span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+
+        <!-- ================= SEÇÃO DE COMPRA ================= -->
+        <div class="card">
+            <h2>Participar da Rifa</h2>
+            <div class="form-group">
+                <label for="nome">Seu Nome Completo:</label>
+                <input type="text" id="nome" placeholder="Ex: Maria da Silva" required>
+            </div>
+            <div class="form-group">
+                <label for="quantidade">Quantos números deseja comprar?</label>
+                <input type="number" id="quantidade" min="1" max="100" placeholder="Ex: 2" required>
+            </div>
+            <button id="btn-participar">Gerar Pagamento Pix</button>
+        </div>
+
+        <!-- ================= SEÇÃO DA LISTA PÚBLICA ================= -->
+        <div class="card">
+            <h2>Participantes (Ao Vivo)</h2>
+            <p>Lista oficial de números já gerados.</p>
+            <ul class="public-list" id="lista-participantes">
+                <li>Carregando banco de dados...</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ================= JANELA POP-UP (MODAL) DO PIX ================= -->
+    <div class="modal-overlay" id="modal-pix">
+        <div class="modal-content">
+            <h3>Atenção!</h3>
+            <p>Para que seus números sejam gerados, faça o Pix no valor de <strong>R$ <span id="valor-cobrado">0,00</span></strong> para a chave abaixo:</p>
+            
+            <div class="chave-pix">
+                <!-- COLOQUE SUA CHAVE PIX AQUI -->
+                CHAVE-PIX-AQUI-CELULAR-OU-EMAIL
+            </div>
+
+            <p style="font-size: 0.9rem; color: #555;">
+                ⚠️ <strong>Aviso importante:</strong> Só clique em "Sim, já paguei" se a transferência foi concluída. 
+                Os pagamentos serão conferidos com o nosso extrato. Números sem pagamento serão cancelados!
+            </p>
+
+            <button class="btn-confirmar" id="btn-confirmar-pix">Sim, já paguei! Gerar números</button>
+            <button class="btn-cancelar" id="btn-fechar-modal">Ainda não paguei (Cancelar)</button>
+        </div>
+    </div>
+
+    <!-- ================= SCRIPT (JAVASCRIPT COM FIREBASE) ================= -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // =====================================================================
+        // COLE AQUI AS CONFIGURAÇÕES DO SEU PROJETO FIREBASE!
+        // =====================================================================
+        const firebaseConfig = {
+            apiKey: "COLE_SUA_API_KEY_AQUI",
+            authDomain: "seu-projeto.firebaseapp.com",
+            projectId: "seu-projeto",
+            storageBucket: "seu-projeto.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "COLE_SEU_APP_ID"
+        };
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Configurações da Rifa
+        const META = 40000;
+        const VALOR_NUMERO = 10;
+        const TOTAL_NUMEROS_DISPONIVEIS = META / VALOR_NUMERO; // 4000
+
+        let numerosOcupados = new Set();
+        let totalArrecadado = 0;
+
+        // Elementos da Tela
+        const btnParticipar = document.getElementById('btn-participar');
+        const modalPix = document.getElementById('modal-pix');
+        const btnFecharModal = document.getElementById('btn-fechar-modal');
+        const btnConfirmarPix = document.getElementById('btn-confirmar-pix');
+        const listaParticipantes = document.getElementById('lista-participantes');
+
+        // LER DADOS DO FIREBASE EM TEMPO REAL
+        const rifaRef = collection(db, "compras_rifa");
+        
+        onSnapshot(rifaRef, (snapshot) => {
+            listaParticipantes.innerHTML = '';
+            numerosOcupados.clear();
+            totalArrecadado = 0;
+
+            if (snapshot.empty) {
+                listaParticipantes.innerHTML = '<li>Nenhum número gerado ainda. Seja o primeiro!</li>';
+            }
+
+            snapshot.forEach((doc) => {
+                const dados = doc.data();
+                
+                if(dados.numeros) {
+                    dados.numeros.forEach(num => numerosOcupados.add(num));
+                    totalArrecadado += (dados.numeros.length * VALOR_NUMERO);
+                }
+
+                const li = document.createElement('li');
+                const spanNome = document.createElement('span');
+                spanNome.innerText = dados.nome;
+
+                const spanNumeros = document.createElement('span');
+                spanNumeros.className = 'numbers-badge';
+                const numerosFormatados = dados.numeros.map(n => String(n).padStart(4, '0')).join(', ');
+                spanNumeros.innerText = `Nº: ${numerosFormatados}`;
+
+                li.appendChild(spanNome);
+                li.appendChild(spanNumeros);
+                listaParticipantes.prepend(li); // Adiciona sempre no topo
+            });
+
+            atualizarProgresso();
+        });
+
+        function atualizarProgresso() {
+            document.getElementById('arrecadado-texto').innerText = `Arrecadado: R$ ${totalArrecadado.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            const porcentagem = (totalArrecadado / META) * 100;
+            document.getElementById('progress-bar').style.width = `${Math.min(porcentagem, 100)}%`;
+        }
+
+        // ABRIR O POP-UP (MODAL)
+        btnParticipar.addEventListener('click', () => {
+            const nome = document.getElementById('nome').value.trim();
+            const quantidade = parseInt(document.getElementById('quantidade').value);
+
+            if (!nome || isNaN(quantidade) || quantidade <= 0) {
+                alert("Preencha seu nome e a quantidade desejada.");
+                return;
+            }
+
+            if (numerosOcupados.size + quantidade > TOTAL_NUMEROS_DISPONIVEIS) {
+                alert(`Só restam ${TOTAL_NUMEROS_DISPONIVEIS - numerosOcupados.size} números disponíveis!`);
+                return;
+            }
+
+            document.getElementById('valor-cobrado').innerText = (quantidade * VALOR_NUMERO).toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            modalPix.style.display = 'flex';
+        });
+
+        // FECHAR O POP-UP
+        btnFecharModal.addEventListener('click', () => {
+            modalPix.style.display = 'none';
+        });
+
+        // CONFIRMAR PAGAMENTO E GERAR NÚMEROS
+        btnConfirmarPix.addEventListener('click', async () => {
+            const nome = document.getElementById('nome').value.trim();
+            const quantidade = parseInt(document.getElementById('quantidade').value);
+            
+            btnConfirmarPix.innerText = "Gerando e Salvando...";
+            btnConfirmarPix.disabled = true;
+
+            let numerosComprados = [];
+            
+            for (let i = 0; i < quantidade; i++) {
+                let novoNumero;
+                do {
+                    novoNumero = Math.floor(Math.random() * TOTAL_NUMEROS_DISPONIVEIS) + 1;
+                } while (numerosOcupados.has(novoNumero) || numerosComprados.includes(novoNumero));
+                
+                numerosComprados.push(novoNumero);
+            }
+
+            try {
+                // Salva no Firebase
+                await addDoc(rifaRef, {
+                    nome: nome,
+                    quantidade: quantidade,
+                    numeros: numerosComprados,
+                    data_compra: serverTimestamp()
+                });
+
+                alert(`Sucesso! Seus números são: ${numerosComprados.join(', ')}.\nIremos conferir o Pix em breve.`);
+                
+                document.getElementById('nome').value = '';
+                document.getElementById('quantidade').value = '';
+                modalPix.style.display = 'none';
+
+            } catch (error) {
+                console.error("Erro ao salvar:", error);
+                alert("Erro de conexão com o banco de dados. Verifique as chaves do Firebase.");
+            } finally {
+                btnConfirmarPix.innerText = "Sim, já paguei! Gerar números";
+                btnConfirmarPix.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
