@@ -9,7 +9,7 @@
         :root {
             --primary: #00796b; 
             --secondary: #004d40;
-            --accent: #ff9800; /* Laranja para destaques */
+            --accent: #ff9800; 
             --bg-color: #f4f7f6;
             --text-color: #333;
         }
@@ -61,15 +61,10 @@
             gap: 10px;
         }
 
-        .info-sorteio p {
-            margin: 5px 0;
-            font-weight: 500;
-        }
+        .info-sorteio p { margin: 5px 0; font-weight: 500; }
 
         /* ================= SEÇÃO DA FOTO ================= */
-        .beneficiados-card {
-            text-align: center;
-        }
+        .beneficiados-card { text-align: center; }
 
         .medico {
             display: flex;
@@ -89,18 +84,8 @@
             background-color: #eee;
         }
 
-        .medico h3 {
-            margin: 0;
-            color: var(--secondary);
-            font-size: 1.5rem;
-        }
-
-        .descricao {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 1rem;
-        }
+        .medico h3 { margin: 0; color: var(--secondary); font-size: 1.5rem; }
+        .descricao { font-size: 1.1rem; line-height: 1.6; color: #555; margin-bottom: 1rem; }
 
         /* ================= BARRA DE PROGRESSO ================= */
         .progress-container {
@@ -119,37 +104,20 @@
             transition: width 0.5s ease-in-out;
         }
 
-        .goal-text {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-        }
+        .goal-text { display: flex; justify-content: space-between; font-weight: bold; }
 
         /* ================= FORMULÁRIO EM DESTAQUE ================= */
         .destaque-compra {
             border: 3px solid var(--accent);
-            background-color: #fffdf5; /* Fundo levemente amarelado */
+            background-color: #fffdf5; 
             box-shadow: 0 8px 20px rgba(255, 152, 0, 0.2);
-            transform: scale(1.02); /* Fica um pouquinho maior que os outros cards */
+            transform: scale(1.02); 
         }
         
-        .destaque-compra h2 {
-            color: #e65100;
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
+        .destaque-compra h2 { color: #e65100; text-transform: uppercase; text-align: center; margin-bottom: 1.5rem; }
 
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-            color: #444;
-        }
+        .form-group { margin-bottom: 1rem; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; color: #444; }
 
         input {
             width: 100%;
@@ -161,7 +129,7 @@
         }
 
         button {
-            background-color: var(--accent); /* Botão chamativo laranja */
+            background-color: var(--accent);
             color: white;
             border: none;
             padding: 15px 20px;
@@ -178,33 +146,15 @@
         button:hover { background-color: #e65100; }
         button:disabled { background-color: #999; cursor: not-allowed; }
 
-        /* ================= TABELA PÚBLICA (FÁCIL DE COPIAR) ================= */
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: var(--primary);
-            color: white;
-        }
-
+        /* ================= TABELA PÚBLICA ================= */
+        .table-responsive { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: var(--primary); color: white; }
         tr:nth-child(even) { background-color: #f9f9f9; }
         tr:hover { background-color: #f1f1f1; }
 
-        /* ================= MODAL (POP-UP) ================= */
+        /* ================= MODAIS (POP-UPS) ================= */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -222,9 +172,8 @@
             max-width: 400px;
             width: 90%;
             text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-
-        .modal-content h3 { color: #d32f2f; margin-top: 0; }
 
         .chave-pix {
             background: #f1f1f1;
@@ -241,9 +190,16 @@
 
         .btn-confirmar { background-color: #4caf50; margin-bottom: 10px; }
         .btn-confirmar:hover { background-color: #388e3c; }
-
         .btn-cancelar { background-color: #d32f2f; }
         .btn-cancelar:hover { background-color: #b71c1c; }
+
+        /* Botão para fechar o alerta novo */
+        .btn-ok-alerta {
+            background-color: var(--primary);
+            margin-top: 15px;
+        }
+        .btn-ok-alerta:hover { background-color: var(--secondary); }
+
     </style>
 </head>
 <body>
@@ -251,14 +207,12 @@
     <header>
         <h1>Rifa Beneficente - Rumo à Formatura</h1>
         <p>Ajude a realizar esse sonho! Valor por número: <strong>R$ 10,00</strong></p>
-        <p><strong> Valor do Prêmio; X% do valor arrecadado</strong></p>
+        <p><strong>Valor do Prêmio: X% do valor arrecadado</strong></p>
     </header>
 
     <div class="container">
         
-        
-
-        <!-- ================= SEÇÃO DA FOTO DO MÉDICO ================= -->
+        <!-- SEÇÃO DA FOTO DO MÉDICO -->
         <div class="card beneficiados-card">
             <h2>Conheça o Futuro Médico</h2>
             <p class="descricao">
@@ -267,14 +221,12 @@
             </p>
             
             <div class="medico">
-                <!-- COLOQUE A FOTO DO MARLON AQUI -->
-                <!-- Substitua o link do src=" " pelo arquivo da foto, ex: src="marlon.jpg" -->
                 <img src="https://via.placeholder.com/200/00796b/ffffff?text=Foto+Marlon" alt="Marlon">
                 <h3>Marlon</h3>
             </div>
         </div>
 
-        <!-- ================= SEÇÃO DE COMPRA (DESTAQUE) ================= -->
+        <!-- SEÇÃO DE COMPRA -->
         <div class="card destaque-compra">
             <h2>🔥 Quero Participar! 🔥</h2>
             
@@ -296,15 +248,14 @@
             <button id="btn-participar">Pagar com PIX e Gerar Números</button>
         </div>
 
-        <!-- ================= SEÇÃO DE AVISOS DO SORTEIO ================= -->
+        <!-- SEÇÃO DE AVISOS DO SORTEIO -->
         <div class="info-sorteio">
             <h3>🎥 Informações do Sorteio</h3>
-            <!-- ALTERE A DATA ABAIXO CONFORME PRECISAR -->
             <p>📅 <strong>Data do Sorteio:</strong> A DEFINIR</p>
             <p>✅ Todo o processo do sorteio <strong>será gravado</strong> e disponibilizado publicamente nas redes sociais para garantir 100% de transparência.</p>
         </div>
 
-        <!-- ================= SEÇÃO DE PROGRESSO ================= -->
+        <!-- SEÇÃO DE PROGRESSO -->
         <div class="card">
             <h2>Nossa Meta de Arrecadação</h2>
             <div class="goal-text">
@@ -316,7 +267,7 @@
             </div>
         </div>
 
-        <!-- ================= SEÇÃO DA LISTA PÚBLICA (TABELA) ================= -->
+        <!-- SEÇÃO DA LISTA PÚBLICA -->
         <div class="card">
             <h2>Participantes Confirmados</h2>
             <p>Lista oficial. Copie os dados desta tabela para realizar o sorteio.</p>
@@ -340,10 +291,10 @@
         </div>
     </div>
 
-    <!-- ================= JANELA POP-UP (MODAL) DO PIX ================= -->
+    <!-- ================= JANELA POP-UP (PIX) ================= -->
     <div class="modal-overlay" id="modal-pix">
         <div class="modal-content">
-            <h3>Atenção!</h3>
+            <h3 style="color: #d32f2f; margin-top: 0;">Atenção!</h3>
             <p>Para que seus números sejam gerados, faça o Pix no valor de <strong>R$ <span id="valor-cobrado">0,00</span></strong> para a chave abaixo:</p>
             
             <div class="chave-pix">
@@ -361,14 +312,21 @@
         </div>
     </div>
 
+    <!-- ================= NOVO: JANELA POP-UP DE ALERTAS ================= -->
+    <div class="modal-overlay" id="modal-alerta" style="z-index: 2000;">
+        <div class="modal-content">
+            <h3 id="alerta-titulo" style="margin-top: 0;">Aviso</h3>
+            <p id="alerta-mensagem" style="font-size: 1.1rem; color: #444;">Mensagem vai aqui.</p>
+            <button class="btn-ok-alerta" id="btn-fechar-alerta">Entendi</button>
+        </div>
+    </div>
+
     <!-- ================= SCRIPT (JAVASCRIPT COM FIREBASE) ================= -->
     <script type="module">
-        import { initializeApp } from "firebase/app";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        // =====================================================================
-        // COLE AQUI AS CONFIGURAÇÕES DO SEU PROJETO FIREBASE!
-        // =====================================================================
+        // SUAS CHAVES DO FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyAvGJJFjZjb9Sb53-4La4n4TU-Iq83_N30",
             authDomain: "rifa-medicina-marlon.firebaseapp.com",
@@ -376,39 +334,59 @@
             storageBucket: "rifa-medicina-marlon.firebasestorage.app",
             messagingSenderId: "317096652330",
             appId: "1:317096652330:web:55661f1154c784dccbdd53"
-            
         };
 
-        // Inicializa o Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Configurações da Rifa
         const META = 40000;
         const VALOR_NUMERO = 10;
-        const TOTAL_NUMEROS_DISPONIVEIS = META / VALOR_NUMERO; // 4000
+        const TOTAL_NUMEROS_DISPONIVEIS = META / VALOR_NUMERO;
 
         let numerosOcupados = new Set();
         let totalArrecadado = 0;
 
-        // Elementos da Tela
+        // Elementos
         const btnParticipar = document.getElementById('btn-participar');
         const modalPix = document.getElementById('modal-pix');
         const btnFecharModal = document.getElementById('btn-fechar-modal');
         const btnConfirmarPix = document.getElementById('btn-confirmar-pix');
         const listaParticipantes = document.getElementById('lista-participantes');
+        
+        // Elementos do Novo Alerta
+        const modalAlerta = document.getElementById('modal-alerta');
+        const alertaTitulo = document.getElementById('alerta-titulo');
+        const alertaMensagem = document.getElementById('alerta-mensagem');
+        const btnFecharAlerta = document.getElementById('btn-fechar-alerta');
 
-        // Função para mascarar telefone (deixa só os 4 últimos)
+        // Função para mostrar os avisos na tela (Substitui o alert padrão)
+        function mostrarAviso(titulo, mensagem, tipo) {
+            alertaTitulo.innerHTML = titulo;
+            alertaMensagem.innerHTML = mensagem;
+            
+            if (tipo === 'sucesso') {
+                alertaTitulo.style.color = '#4caf50'; // Verde
+            } else {
+                alertaTitulo.style.color = '#d32f2f'; // Vermelho
+            }
+            
+            modalAlerta.style.display = 'flex';
+        }
+
+        // Fechar o aviso personalizado
+        btnFecharAlerta.addEventListener('click', () => {
+            modalAlerta.style.display = 'none';
+        });
+
         function mascararTelefone(telefone) {
             if (!telefone) return "Não informado";
-            // Remove espaços e traços
             const numLimpo = telefone.replace(/\s|-/g, '');
             if (numLimpo.length < 4) return numLimpo;
             const ultimos4 = numLimpo.slice(-4);
             return `********${ultimos4}`;
         }
 
-        // LER DADOS DO FIREBASE EM TEMPO REAL (Ordenado pela data de compra)
+        // LER DADOS DO FIREBASE
         const rifaRef = collection(db, "compras_rifa");
         const q = query(rifaRef, orderBy("data_compra", "desc"));
         
@@ -429,20 +407,14 @@
                     totalArrecadado += (dados.numeros.length * VALOR_NUMERO);
                 }
 
-                // Cria a linha da tabela (tr)
                 const tr = document.createElement('tr');
-                
-                // Coluna: Nome
                 const tdNome = document.createElement('td');
                 tdNome.innerText = dados.nome;
                 
-                // Coluna: Telefone Mascarado
                 const tdTel = document.createElement('td');
                 tdTel.innerText = mascararTelefone(dados.telefone);
 
-                // Coluna: Números
                 const tdNumeros = document.createElement('td');
-                // Formata os números no padrão 0001, 0002 para ficar fácil de organizar
                 const numerosFormatados = dados.numeros.map(n => String(n).padStart(4, '0')).join(', ');
                 tdNumeros.innerText = numerosFormatados;
 
@@ -462,19 +434,19 @@
             document.getElementById('progress-bar').style.width = `${Math.min(porcentagem, 100)}%`;
         }
 
-        // ABRIR O POP-UP (MODAL)
+        // ABRIR O POP-UP (PIX)
         btnParticipar.addEventListener('click', () => {
             const nome = document.getElementById('nome').value.trim();
             const telefone = document.getElementById('telefone').value.trim();
             const quantidade = parseInt(document.getElementById('quantidade').value);
 
             if (!nome || !telefone || isNaN(quantidade) || quantidade <= 0) {
-                alert("Por favor, preencha seu nome, telefone e a quantidade de números corretamente.");
+                mostrarAviso("⚠️ Atenção", "Por favor, preencha seu <strong>Nome, Telefone e a Quantidade</strong> de números corretamente.", "erro");
                 return;
             }
 
             if (numerosOcupados.size + quantidade > TOTAL_NUMEROS_DISPONIVEIS) {
-                alert(`Só restam ${TOTAL_NUMEROS_DISPONIVEIS - numerosOcupados.size} números disponíveis!`);
+                mostrarAviso("⚠️ Números Esgotados", `Só restam <strong>${TOTAL_NUMEROS_DISPONIVEIS - numerosOcupados.size}</strong> números disponíveis!`, "erro");
                 return;
             }
 
@@ -482,12 +454,11 @@
             modalPix.style.display = 'flex';
         });
 
-        // FECHAR O POP-UP
         btnFecharModal.addEventListener('click', () => {
             modalPix.style.display = 'none';
         });
 
-        // CONFIRMAR PAGAMENTO E GERAR NÚMEROS
+        // CONFIRMAR E SALVAR NO FIREBASE
         btnConfirmarPix.addEventListener('click', async () => {
             const nome = document.getElementById('nome').value.trim();
             const telefone = document.getElementById('telefone').value.trim();
@@ -508,31 +479,34 @@
             }
 
             try {
-                // Salva no Firebase
                 await addDoc(rifaRef, {
                     nome: nome,
-                    telefone: telefone, // Salva o telefone real (você verá no painel do Firebase)
+                    telefone: telefone, 
                     quantidade: quantidade,
                     numeros: numerosComprados,
                     data_compra: serverTimestamp()
                 });
 
-                alert(`Sucesso! Seus números são: ${numerosComprados.join(', ')}.\nIremos conferir o Pix em breve.`);
+                // Fecha a tela do pix
+                modalPix.style.display = 'none';
+
+                // Mostra o Novo Aviso de Sucesso Bem Bonito
+                let msgSucesso = `Agradecemos o seu apoio!<br><br>Seus números da sorte são:<br><br><span style="font-size: 1.8rem; font-weight: bold; color: #00796b; background: #e0f2f1; padding: 10px; border-radius: 8px; display: inline-block;">${numerosComprados.map(n => String(n).padStart(4, '0')).join(', ')}</span><br><br>Sua participação já está na tabela. Conferiremos o Pix em breve!`;
+                
+                mostrarAviso("🏆 Sucesso!", msgSucesso, "sucesso");
                 
                 // Limpa o formulário
                 document.getElementById('nome').value = '';
                 document.getElementById('telefone').value = '';
                 document.getElementById('quantidade').value = '';
-                modalPix.style.display = 'none';
 
             } catch (error) {
                 console.error("Erro ao salvar:", error);
                 
-                // Verificação de erro para facilitar a correção caso falte o índice no Firebase
                 if(error.message.includes("index")) {
-                    alert("Aviso para o Administrador: O Firebase precisa criar um índice de pesquisa (Index) para ordenar por data. Abra o console do seu navegador (F12) e clique no link que o Firebase gerou para criar o índice automaticamente.");
+                    mostrarAviso("⚠️ Erro no Banco", "O Firebase precisa do Índice criado. Leia o Console (F12).", "erro");
                 } else {
-                    alert("Erro de conexão com o banco de dados. Verifique as chaves do Firebase.");
+                    mostrarAviso("⚠️ Erro de Conexão", "Houve um problema de comunicação com o servidor. Tente novamente.", "erro");
                 }
                 
             } finally {
