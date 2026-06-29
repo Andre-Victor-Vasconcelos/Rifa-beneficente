@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifa Beneficente - Formatura Medicina</title>
+    <title>Rifa Beneficente - Formatura Medicina (Marlon)</title>
     <style>
         /* ================= ESTILOS (CSS) ================= */
         :root {
             --primary: #00796b; 
             --secondary: #004d40;
+            --accent: #ff9800; /* Laranja para destaques */
             --bg-color: #f4f7f6;
             --text-color: #333;
         }
@@ -43,29 +44,43 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        /* ================= SEÇÃO DE FOTOS ================= */
-        .beneficiados-card {
-            text-align: center;
+        /* ================= INFO SORTEIO ================= */
+        .info-sorteio {
+            background-color: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            color: #0d47a1;
         }
 
-        .fotos-container {
+        .info-sorteio h3 {
+            margin-top: 0;
             display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-sorteio p {
+            margin: 5px 0;
+            font-weight: 500;
+        }
+
+        /* ================= SEÇÃO DA FOTO ================= */
+        .beneficiados-card {
+            text-align: center;
         }
 
         .medico {
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-top: 1rem;
         }
 
-        /* Estilo da foto redonda */
         .medico img {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--primary);
@@ -77,7 +92,7 @@
         .medico h3 {
             margin: 0;
             color: var(--secondary);
-            font-size: 1.3rem;
+            font-size: 1.5rem;
         }
 
         .descricao {
@@ -98,7 +113,7 @@
         }
 
         .progress-bar {
-            background-color: #ff9800;
+            background-color: var(--accent);
             height: 100%;
             width: 0%;
             transition: width 0.5s ease-in-out;
@@ -110,14 +125,35 @@
             font-weight: bold;
         }
 
-        /* ================= FORMULÁRIO E BOTÕES ================= */
+        /* ================= FORMULÁRIO EM DESTAQUE ================= */
+        .destaque-compra {
+            border: 3px solid var(--accent);
+            background-color: #fffdf5; /* Fundo levemente amarelado */
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.2);
+            transform: scale(1.02); /* Fica um pouquinho maior que os outros cards */
+        }
+        
+        .destaque-compra h2 {
+            color: #e65100;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
         .form-group {
             margin-bottom: 1rem;
         }
 
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #444;
+        }
+
         input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-sizing: border-box;
@@ -125,54 +161,55 @@
         }
 
         button {
-            background-color: var(--primary);
+            background-color: var(--accent); /* Botão chamativo laranja */
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 15px 20px;
             width: 100%;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s;
+            text-transform: uppercase;
+            margin-top: 10px;
         }
 
-        button:hover { background-color: var(--secondary); }
+        button:hover { background-color: #e65100; }
         button:disabled { background-color: #999; cursor: not-allowed; }
 
-        /* ================= LISTA PÚBLICA ================= */
-        .public-list {
-            list-style: none;
-            padding: 0;
-            max-height: 400px;
-            overflow-y: auto;
+        /* ================= TABELA PÚBLICA (FÁCIL DE COPIAR) ================= */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
         }
 
-        .public-list li {
-            background: #e0f2f1;
-            margin-bottom: 0.5rem;
-            padding: 1rem;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 5px solid var(--primary);
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
         }
 
-        .numbers-badge {
-            background: var(--primary);
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary);
             color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-weight: bold;
-            font-size: 0.9rem;
         }
+
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #f1f1f1; }
 
         /* ================= MODAL (POP-UP) ================= */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.7);
             align-items: center;
             justify-content: center;
             z-index: 1000;
@@ -187,14 +224,11 @@
             text-align: center;
         }
 
-        .modal-content h3 {
-            color: #d32f2f;
-            margin-top: 0;
-        }
+        .modal-content h3 { color: #d32f2f; margin-top: 0; }
 
         .chave-pix {
             background: #f1f1f1;
-            padding: 10px;
+            padding: 15px;
             font-weight: bold;
             font-family: monospace;
             font-size: 1.2rem;
@@ -202,6 +236,7 @@
             margin: 15px 0;
             word-break: break-all;
             color: #333;
+            border: 1px dashed #999;
         }
 
         .btn-confirmar { background-color: #4caf50; margin-bottom: 10px; }
@@ -215,36 +250,60 @@
 
     <header>
         <h1>Rifa Beneficente - Rumo à Formatura</h1>
-        <p>Valor por número: <strong>R$ 10,00</strong></p>
+        <p>Ajude a realizar esse sonho! Valor por número: <strong>R$ 10,00</strong></p>
     </header>
 
     <div class="container">
         
-        <!-- ================= SEÇÃO DE FOTOS DOS MÉDICOS ================= -->
+        <!-- ================= SEÇÃO DE AVISOS DO SORTEIO ================= -->
+        <div class="info-sorteio">
+            <h3>🎥 Informações do Sorteio</h3>
+            <!-- ALTERE A DATA ABAIXO CONFORME PRECISAR -->
+            <p>📅 <strong>Data do Sorteio:</strong> 20 de Dezembro de 2026</p>
+            <p>✅ Todo o processo do sorteio <strong>será gravado</strong> e disponibilizado publicamente nas redes sociais para garantir 100% de transparência.</p>
+        </div>
+
+        <!-- ================= SEÇÃO DA FOTO DO MÉDICO ================= -->
         <div class="card beneficiados-card">
-            <h2>Conheça os Futuros Médicos</h2>
+            <h2>Conheça o Futuro Médico</h2>
             <p class="descricao">
-                Toda a arrecadação desta rifa será destinada à conclusão do nosso curso de <strong>Medicina</strong>. 
-                Agradecemos de coração a cada um de vocês por nos ajudarem a realizar esse grande sonho!
+                Toda a arrecadação desta rifa será destinada exclusivamente para os custos de conclusão do meu curso de <strong>Medicina</strong>. 
+                Agradeço de coração a cada um de vocês por me ajudarem a realizar esse grande sonho!
             </p>
-            <div class="fotos-container">
-                <div class="medico">
-                    <!-- COLOQUE A FOTO DO MARLON AQUI -->
-                    <!-- Exemplo: Se a foto estiver na mesma pasta com o nome "marlon.jpg", mude o src para src="marlon.jpg" -->
-                    <img src="https://via.placeholder.com/200/00796b/ffffff?text=Foto+Marlon" alt="Marlon">
-                    <h3>Marlon</h3>
-                </div>
-                <div class="medico">
-                    <!-- COLOQUE A FOTO DO MAIRON AQUI -->
-                    <img src="https://via.placeholder.com/200/00796b/ffffff?text=Foto+Mairon" alt="Mairon">
-                    <h3>Mairon</h3>
-                </div>
+            
+            <div class="medico">
+                <!-- COLOQUE A FOTO DO MARLON AQUI -->
+                <!-- Substitua o link do src=" " pelo arquivo da foto, ex: src="marlon.jpg" -->
+                <img src="https://via.placeholder.com/200/00796b/ffffff?text=Foto+Marlon" alt="Marlon">
+                <h3>Marlon</h3>
             </div>
+        </div>
+
+        <!-- ================= SEÇÃO DE COMPRA (DESTAQUE) ================= -->
+        <div class="card destaque-compra">
+            <h2>🔥 Quero Participar! 🔥</h2>
+            
+            <div class="form-group">
+                <label for="nome">Seu Nome Completo:</label>
+                <input type="text" id="nome" placeholder="Ex: Maria da Silva" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="telefone">Seu WhatsApp (Telefone):</label>
+                <input type="tel" id="telefone" placeholder="Ex: (27) 99999-9999" required>
+            </div>
+
+            <div class="form-group">
+                <label for="quantidade">Quantos números deseja comprar?</label>
+                <input type="number" id="quantidade" min="1" max="100" placeholder="Ex: 2" required>
+            </div>
+            
+            <button id="btn-participar">Pagar com PIX e Gerar Números</button>
         </div>
 
         <!-- ================= SEÇÃO DE PROGRESSO ================= -->
         <div class="card">
-            <h2>Meta de Arrecadação</h2>
+            <h2>Nossa Meta de Arrecadação</h2>
             <div class="goal-text">
                 <span id="arrecadado-texto">Arrecadado: Carregando...</span>
                 <span>Meta: R$ 40.000,00</span>
@@ -254,27 +313,27 @@
             </div>
         </div>
 
-        <!-- ================= SEÇÃO DE COMPRA ================= -->
+        <!-- ================= SEÇÃO DA LISTA PÚBLICA (TABELA) ================= -->
         <div class="card">
-            <h2>Participar da Rifa</h2>
-            <div class="form-group">
-                <label for="nome">Seu Nome Completo:</label>
-                <input type="text" id="nome" placeholder="Ex: Maria da Silva" required>
+            <h2>Participantes Confirmados</h2>
+            <p>Lista oficial. Copie os dados desta tabela para realizar o sorteio.</p>
+            
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Números da Sorte</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-participantes">
+                        <tr>
+                            <td colspan="3" style="text-align: center;">Carregando banco de dados...</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="form-group">
-                <label for="quantidade">Quantos números deseja comprar?</label>
-                <input type="number" id="quantidade" min="1" max="100" placeholder="Ex: 2" required>
-            </div>
-            <button id="btn-participar">Gerar Pagamento Pix</button>
-        </div>
-
-        <!-- ================= SEÇÃO DA LISTA PÚBLICA ================= -->
-        <div class="card">
-            <h2>Participantes (Ao Vivo)</h2>
-            <p>Lista oficial de números já gerados.</p>
-            <ul class="public-list" id="lista-participantes">
-                <li>Carregando banco de dados...</li>
-            </ul>
         </div>
     </div>
 
@@ -291,7 +350,7 @@
 
             <p style="font-size: 0.9rem; color: #555;">
                 ⚠️ <strong>Aviso importante:</strong> Só clique em "Sim, já paguei" se a transferência foi concluída. 
-                Os pagamentos serão conferidos com o nosso extrato. Números sem pagamento serão cancelados!
+                Os pagamentos serão conferidos com o extrato. Números sem pagamento serão cancelados!
             </p>
 
             <button class="btn-confirmar" id="btn-confirmar-pix">Sim, já paguei! Gerar números</button>
@@ -302,7 +361,7 @@
     <!-- ================= SCRIPT (JAVASCRIPT COM FIREBASE) ================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         // =====================================================================
         // COLE AQUI AS CONFIGURAÇÕES DO SEU PROJETO FIREBASE!
@@ -335,16 +394,27 @@
         const btnConfirmarPix = document.getElementById('btn-confirmar-pix');
         const listaParticipantes = document.getElementById('lista-participantes');
 
-        // LER DADOS DO FIREBASE EM TEMPO REAL
+        // Função para mascarar telefone (deixa só os 4 últimos)
+        function mascararTelefone(telefone) {
+            if (!telefone) return "Não informado";
+            // Remove espaços e traços
+            const numLimpo = telefone.replace(/\s|-/g, '');
+            if (numLimpo.length < 4) return numLimpo;
+            const ultimos4 = numLimpo.slice(-4);
+            return `********${ultimos4}`;
+        }
+
+        // LER DADOS DO FIREBASE EM TEMPO REAL (Ordenado pela data de compra)
         const rifaRef = collection(db, "compras_rifa");
+        const q = query(rifaRef, orderBy("data_compra", "desc"));
         
-        onSnapshot(rifaRef, (snapshot) => {
+        onSnapshot(q, (snapshot) => {
             listaParticipantes.innerHTML = '';
             numerosOcupados.clear();
             totalArrecadado = 0;
 
             if (snapshot.empty) {
-                listaParticipantes.innerHTML = '<li>Nenhum número gerado ainda. Seja o primeiro!</li>';
+                listaParticipantes.innerHTML = '<tr><td colspan="3" style="text-align: center;">Nenhum número gerado ainda. Seja o primeiro!</td></tr>';
             }
 
             snapshot.forEach((doc) => {
@@ -355,18 +425,28 @@
                     totalArrecadado += (dados.numeros.length * VALOR_NUMERO);
                 }
 
-                const li = document.createElement('li');
-                const spanNome = document.createElement('span');
-                spanNome.innerText = dados.nome;
+                // Cria a linha da tabela (tr)
+                const tr = document.createElement('tr');
+                
+                // Coluna: Nome
+                const tdNome = document.createElement('td');
+                tdNome.innerText = dados.nome;
+                
+                // Coluna: Telefone Mascarado
+                const tdTel = document.createElement('td');
+                tdTel.innerText = mascararTelefone(dados.telefone);
 
-                const spanNumeros = document.createElement('span');
-                spanNumeros.className = 'numbers-badge';
+                // Coluna: Números
+                const tdNumeros = document.createElement('td');
+                // Formata os números no padrão 0001, 0002 para ficar fácil de organizar
                 const numerosFormatados = dados.numeros.map(n => String(n).padStart(4, '0')).join(', ');
-                spanNumeros.innerText = `Nº: ${numerosFormatados}`;
+                tdNumeros.innerText = numerosFormatados;
 
-                li.appendChild(spanNome);
-                li.appendChild(spanNumeros);
-                listaParticipantes.prepend(li); // Adiciona sempre no topo
+                tr.appendChild(tdNome);
+                tr.appendChild(tdTel);
+                tr.appendChild(tdNumeros);
+                
+                listaParticipantes.appendChild(tr);
             });
 
             atualizarProgresso();
@@ -381,10 +461,11 @@
         // ABRIR O POP-UP (MODAL)
         btnParticipar.addEventListener('click', () => {
             const nome = document.getElementById('nome').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
             const quantidade = parseInt(document.getElementById('quantidade').value);
 
-            if (!nome || isNaN(quantidade) || quantidade <= 0) {
-                alert("Preencha seu nome e a quantidade desejada.");
+            if (!nome || !telefone || isNaN(quantidade) || quantidade <= 0) {
+                alert("Por favor, preencha seu nome, telefone e a quantidade de números corretamente.");
                 return;
             }
 
@@ -405,6 +486,7 @@
         // CONFIRMAR PAGAMENTO E GERAR NÚMEROS
         btnConfirmarPix.addEventListener('click', async () => {
             const nome = document.getElementById('nome').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
             const quantidade = parseInt(document.getElementById('quantidade').value);
             
             btnConfirmarPix.innerText = "Gerando e Salvando...";
@@ -425,6 +507,7 @@
                 // Salva no Firebase
                 await addDoc(rifaRef, {
                     nome: nome,
+                    telefone: telefone, // Salva o telefone real (você verá no painel do Firebase)
                     quantidade: quantidade,
                     numeros: numerosComprados,
                     data_compra: serverTimestamp()
@@ -432,13 +515,22 @@
 
                 alert(`Sucesso! Seus números são: ${numerosComprados.join(', ')}.\nIremos conferir o Pix em breve.`);
                 
+                // Limpa o formulário
                 document.getElementById('nome').value = '';
+                document.getElementById('telefone').value = '';
                 document.getElementById('quantidade').value = '';
                 modalPix.style.display = 'none';
 
             } catch (error) {
                 console.error("Erro ao salvar:", error);
-                alert("Erro de conexão com o banco de dados. Verifique as chaves do Firebase.");
+                
+                // Verificação de erro para facilitar a correção caso falte o índice no Firebase
+                if(error.message.includes("index")) {
+                    alert("Aviso para o Administrador: O Firebase precisa criar um índice de pesquisa (Index) para ordenar por data. Abra o console do seu navegador (F12) e clique no link que o Firebase gerou para criar o índice automaticamente.");
+                } else {
+                    alert("Erro de conexão com o banco de dados. Verifique as chaves do Firebase.");
+                }
+                
             } finally {
                 btnConfirmarPix.innerText = "Sim, já paguei! Gerar números";
                 btnConfirmarPix.disabled = false;
