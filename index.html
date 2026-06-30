@@ -14,6 +14,8 @@
             --text-color: #333;
         }
 
+        <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
@@ -323,7 +325,7 @@
     <!-- ================= SCRIPT (JAVASCRIPT COM FIREBASE) ================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy,getDocs} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         // SUAS CHAVES DO FIREBASE
         const firebaseConfig = {
@@ -513,6 +515,43 @@
                 btnConfirmarPix.disabled = false;
             }
         });
+
+        window.exportarExcel = async function () {
+
+    const snapshot = await getDocs(collection(db, "compras_rifa"));
+
+    const dados = [];
+
+    snapshot.forEach(doc => {
+
+        const d = doc.data();
+
+        dados.push({
+            Nome: d.nome || "",
+            Telefone: d.telefone || "",
+            Quantidade: d.quantidade || "",
+            Numeros: Array.isArray(d.numeros)
+                ? d.numeros.join(", ")
+                : "",
+            Data: d.data_compra
+                ? d.data_compra.toDate().toLocaleString("pt-BR")
+                : ""
+        });
+
+    });
+
+    const ws = XLSX.utils.json_to_sheet(dados);
+
+    const wb = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(wb, ws, "Compradores");
+
+    XLSX.writeFile(wb, "Compradores_Rifa.xlsx");
+
+    console.log("Excel exportado com sucesso!");
+
+}
+        
     </script>
 </body>
 </html>
