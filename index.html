@@ -304,7 +304,7 @@
             <div class="passo-item">
                 <div class="passo-numero">4</div>
                 <div class="passo-texto">
-                    Preencha o formulário logo abaixo na seção <strong>"Quero Participar"</strong> informando seu nome, telefone e a quantidade de números que você comprou para gerar seus números da sorte.
+                    Preencha o formulário logo abaixo na seção <strong>"Quero Participar"</strong> informando seu nome, telefone e a quantidade de números comprados.
                 </div>
             </div>
         </div>
@@ -320,15 +320,15 @@
             
             <div class="form-group">
                 <label for="telefone">Seu WhatsApp (Telefone):</label>
-                <input type="tel" id="telefone" placeholder="Ex: (79) 98801-8555" required>
+                <input type="tel" id="telefone" placeholder="Ex: (27) 99999-9999" required>
             </div>
 
             <div class="form-group">
-                <label for="quantidade">Quantos números você comprou?</label>
+                <label for="quantidade">Quantos números deseja comprar?</label>
                 <input type="number" id="quantidade" min="1" max="100" placeholder="Ex: 2" required>
             </div>
             
-            <button id="btn-participar">Registrar Minha Participação</button>
+            <button id="btn-participar">Pagar com PIX e Gerar Números</button>
         </div>
 
         <!-- SEÇÃO DE AVISOS DO SORTEIO -->
@@ -377,22 +377,19 @@
     <!-- ================= JANELA POP-UP (PIX) ================= -->
     <div class="modal-overlay" id="modal-pix">
         <div class="modal-content">
-            <h3 style="color: #00796b; margin-top: 0;">Confirmação de Registro</h3>
-            <p>Você selecionou o registro de <strong><span id="modal-quantidade">0</span> número(s)</strong> no valor total de <strong>R$ <span id="valor-cobrado">0,00</span></strong>.</p>
+            <h3 style="color: #d32f2f; margin-top: 0;">Atenção!</h3>
+            <p>Para que seus números sejam gerados, faça o Pix no valor de <strong>R$ <span id="valor-cobrado">0,00</span></strong> para a chave abaixo:</p>
             
-            <p style="font-size: 0.95rem; color: #333; margin-bottom: 5px;">
-                Certifique-se de que já realizou o Pix para a chave:
-            </p>
             <div class="chave-pix">
                 marlonflamengo781@gmail.com                
             </div>
 
             <p style="font-size: 0.9rem; color: #555;">
-                ⚠️ <strong>Aviso:</strong> Lembre-se de enviar o comprovante para o número <strong>(79) 98801-8555</strong> caso ainda não o tenha feito.
+                ⚠️ <strong>Aviso importante:</strong> Só clique em "Sim, já paguei" se a transferência foi concluída. 
             </p>
 
-            <button class="btn-confirmar" id="btn-confirmar-pix">Sim, já paguei e enviei! Gerar números</button>
-            <button class="btn-cancelar" id="btn-fechar-modal">Voltar</button>
+            <button class="btn-confirmar" id="btn-confirmar-pix">Sim, já paguei! Gerar números</button>
+            <button class="btn-cancelar" id="btn-fechar-modal">Ainda não paguei (Cancelar)</button>
         </div>
     </div>
 
@@ -443,7 +440,7 @@
         const alertaMensagem = document.getElementById('alerta-mensagem');
         const btnFecharAlerta = document.getElementById('btn-fechar-alerta');
 
-        // Função para mostrar os avisos na tela
+        // Função para mostrar os avisos na tela (Substitui o alert padrão)
         function mostrarAviso(titulo, mensagem, tipo) {
             alertaTitulo.innerHTML = titulo;
             alertaMensagem.innerHTML = mensagem;
@@ -529,12 +526,11 @@
                 return;
             }
 
-            if (numerosOcupados.size + quantidade > TOTAL_NUMEROS_DISPOSIVEIS) {
+            if (numerosOcupados.size + quantidade > TOTAL_NUMEROS_DISPONIVEIS) {
                 mostrarAviso("⚠️ Números Esgotados", `Só restam <strong>${TOTAL_NUMEROS_DISPONIVEIS - numerosOcupados.size}</strong> números disponíveis!`, "erro");
                 return;
             }
 
-            document.getElementById('modal-quantidade').innerText = quantidade;
             document.getElementById('valor-cobrado').innerText = (quantidade * VALOR_NUMERO).toLocaleString('pt-BR', {minimumFractionDigits: 2});
             modalPix.style.display = 'flex';
         });
@@ -549,7 +545,7 @@
             const telefone = document.getElementById('telefone').value.trim();
             const quantidade = parseInt(document.getElementById('quantidade').value);
             
-            btnConfirmarPix.innerText = "Registrando e Salvando...";
+            btnConfirmarPix.innerText = "Gerando e Salvando...";
             btnConfirmarPix.disabled = true;
 
             let numerosComprados = [];
@@ -575,8 +571,8 @@
                 // Fecha a tela do pix
                 modalPix.style.display = 'none';
 
-                // Mostra o Novo Aviso de Sucesso
-                let msgSucesso = `Agradecemos o seu apoio!<br><br>Seus números da sorte são:<br><br><span style="font-size: 1.8rem; font-weight: bold; color: #00796b; background: #e0f2f1; padding: 10px; border-radius: 8px; display: inline-block;">${numerosComprados.map(n => String(n).padStart(4, '0')).join(', ')}</span><br><br>Sua participação já está registrada na tabela. Validaremos o comprovante enviado pelo WhatsApp o mais breve possível!`;
+                // Mostra o Novo Aviso de Sucesso Bem Bonito
+                let msgSucesso = `Agradecemos o seu apoio!<br><br>Seus números da sorte são:<br><br><span style="font-size: 1.8rem; font-weight: bold; color: #00796b; background: #e0f2f1; padding: 10px; border-radius: 8px; display: inline-block;">${numerosComprados.map(n => String(n).padStart(4, '0')).join(', ')}</span><br><br>Sua participação já está na tabela. Conferiremos o Pix em breve!`;
                 
                 mostrarAviso("🏆 Sucesso!", msgSucesso, "sucesso");
                 
@@ -595,7 +591,7 @@
                 }
                 
             } finally {
-                btnConfirmarPix.innerText = "Sim, já paguei e enviei! Gerar números";
+                btnConfirmarPix.innerText = "Sim, já paguei! Gerar números";
                 btnConfirmarPix.disabled = false;
             }
         });
