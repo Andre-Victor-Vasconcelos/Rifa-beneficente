@@ -13,8 +13,6 @@
             --bg-color: #f4f7f6;
             --text-color: #333;
         }
-
-        <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -44,6 +42,54 @@
             padding: 2rem;
             margin-bottom: 2rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* ================= INSTRUÇÕES PASSO A PASSO ================= */
+        .instrucoes-card {
+            border-left: 5px solid var(--primary);
+            background-color: #f0f7f6;
+        }
+
+        .instrucoes-card h2 {
+            color: var(--secondary);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .passo-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .passo-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .passo-numero {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .passo-texto {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        .passo-texto strong {
+            color: #000;
         }
 
         /* ================= INFO SORTEIO ================= */
@@ -228,6 +274,41 @@
             </div>
         </div>
 
+        <!-- SEÇÃO DE INSTRUÇÕES PASSO A PASSO -->
+        <div class="card instrucoes-card">
+            <h2>Como Participar:</h2>
+            
+            <div class="passo-item">
+                <div class="passo-numero">1</div>
+                <div class="passo-texto">
+                    Escolha quantos números deseja comprar. Cada número custa <strong>R$ 10,00</strong>.
+                </div>
+            </div>
+            
+            <div class="passo-item">
+                <div class="passo-numero">2</div>
+                <div class="passo-texto">
+                    Faça o Pix correspondente ao valor total para a chave: <br>
+                    <strong>marlonflamengo781@gmail.com</strong>
+                </div>
+            </div>
+            
+            <div class="passo-item">
+                <div class="passo-numero">3</div>
+                <div class="passo-texto">
+                    Envie o comprovante de pagamento para o WhatsApp: <br>
+                    <strong>(79) 98801-8555</strong>
+                </div>
+            </div>
+            
+            <div class="passo-item">
+                <div class="passo-numero">4</div>
+                <div class="passo-texto">
+                    Preencha o formulário logo abaixo na seção <strong>"Quero Participar"</strong> informando seu nome, telefone e a quantidade de números que você comprou para gerar seus números da sorte.
+                </div>
+            </div>
+        </div>
+
         <!-- SEÇÃO DE COMPRA -->
         <div class="card destaque-compra">
             <h2>🔥 Quero Participar! 🔥</h2>
@@ -239,15 +320,15 @@
             
             <div class="form-group">
                 <label for="telefone">Seu WhatsApp (Telefone):</label>
-                <input type="tel" id="telefone" placeholder="Ex: (27) 99999-9999" required>
+                <input type="tel" id="telefone" placeholder="Ex: (79) 98801-8555" required>
             </div>
 
             <div class="form-group">
-                <label for="quantidade">Quantos números deseja comprar?</label>
+                <label for="quantidade">Quantos números você comprou?</label>
                 <input type="number" id="quantidade" min="1" max="100" placeholder="Ex: 2" required>
             </div>
             
-            <button id="btn-participar">Pagar com PIX e Gerar Números</button>
+            <button id="btn-participar">Registrar Minha Participação</button>
         </div>
 
         <!-- SEÇÃO DE AVISOS DO SORTEIO -->
@@ -296,24 +377,26 @@
     <!-- ================= JANELA POP-UP (PIX) ================= -->
     <div class="modal-overlay" id="modal-pix">
         <div class="modal-content">
-            <h3 style="color: #d32f2f; margin-top: 0;">Atenção!</h3>
-            <p>Para que seus números sejam gerados, faça o Pix no valor de <strong>R$ <span id="valor-cobrado">0,00</span></strong> para a chave abaixo:</p>
+            <h3 style="color: #00796b; margin-top: 0;">Confirmação de Registro</h3>
+            <p>Você selecionou o registro de <strong><span id="modal-quantidade">0</span> número(s)</strong> no valor total de <strong>R$ <span id="valor-cobrado">0,00</span></strong>.</p>
             
+            <p style="font-size: 0.95rem; color: #333; margin-bottom: 5px;">
+                Certifique-se de que já realizou o Pix para a chave:
+            </p>
             <div class="chave-pix">
-                <!-- COLOQUE SUA CHAVE PIX AQUI -->
                 marlonflamengo781@gmail.com                
             </div>
 
             <p style="font-size: 0.9rem; color: #555;">
-                ⚠️ <strong>Aviso importante:</strong> Só clique em "Sim, já paguei" se a transferência foi concluída. 
+                ⚠️ <strong>Aviso:</strong> Lembre-se de enviar o comprovante para o número <strong>(79) 98801-8555</strong> caso ainda não o tenha feito.
             </p>
 
-            <button class="btn-confirmar" id="btn-confirmar-pix">Sim, já paguei! Gerar números</button>
-            <button class="btn-cancelar" id="btn-fechar-modal">Ainda não paguei (Cancelar)</button>
+            <button class="btn-confirmar" id="btn-confirmar-pix">Sim, já paguei e enviei! Gerar números</button>
+            <button class="btn-cancelar" id="btn-fechar-modal">Voltar</button>
         </div>
     </div>
 
-    <!-- ================= NOVO: JANELA POP-UP DE ALERTAS ================= -->
+    <!-- ================= JANELA POP-UP DE ALERTAS ================= -->
     <div class="modal-overlay" id="modal-alerta" style="z-index: 2000;">
         <div class="modal-content">
             <h3 id="alerta-titulo" style="margin-top: 0;">Aviso</h3>
@@ -325,7 +408,7 @@
     <!-- ================= SCRIPT (JAVASCRIPT COM FIREBASE) ================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy,getDocs} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         // SUAS CHAVES DO FIREBASE
         const firebaseConfig = {
@@ -360,7 +443,7 @@
         const alertaMensagem = document.getElementById('alerta-mensagem');
         const btnFecharAlerta = document.getElementById('btn-fechar-alerta');
 
-        // Função para mostrar os avisos na tela (Substitui o alert padrão)
+        // Função para mostrar os avisos na tela
         function mostrarAviso(titulo, mensagem, tipo) {
             alertaTitulo.innerHTML = titulo;
             alertaMensagem.innerHTML = mensagem;
@@ -446,11 +529,12 @@
                 return;
             }
 
-            if (numerosOcupados.size + quantidade > TOTAL_NUMEROS_DISPONIVEIS) {
+            if (numerosOcupados.size + quantidade > TOTAL_NUMEROS_DISPOSIVEIS) {
                 mostrarAviso("⚠️ Números Esgotados", `Só restam <strong>${TOTAL_NUMEROS_DISPONIVEIS - numerosOcupados.size}</strong> números disponíveis!`, "erro");
                 return;
             }
 
+            document.getElementById('modal-quantidade').innerText = quantidade;
             document.getElementById('valor-cobrado').innerText = (quantidade * VALOR_NUMERO).toLocaleString('pt-BR', {minimumFractionDigits: 2});
             modalPix.style.display = 'flex';
         });
@@ -465,7 +549,7 @@
             const telefone = document.getElementById('telefone').value.trim();
             const quantidade = parseInt(document.getElementById('quantidade').value);
             
-            btnConfirmarPix.innerText = "Gerando e Salvando...";
+            btnConfirmarPix.innerText = "Registrando e Salvando...";
             btnConfirmarPix.disabled = true;
 
             let numerosComprados = [];
@@ -491,8 +575,8 @@
                 // Fecha a tela do pix
                 modalPix.style.display = 'none';
 
-                // Mostra o Novo Aviso de Sucesso Bem Bonito
-                let msgSucesso = `Agradecemos o seu apoio!<br><br>Seus números da sorte são:<br><br><span style="font-size: 1.8rem; font-weight: bold; color: #00796b; background: #e0f2f1; padding: 10px; border-radius: 8px; display: inline-block;">${numerosComprados.map(n => String(n).padStart(4, '0')).join(', ')}</span><br><br>Sua participação já está na tabela. Conferiremos o Pix em breve!`;
+                // Mostra o Novo Aviso de Sucesso
+                let msgSucesso = `Agradecemos o seu apoio!<br><br>Seus números da sorte são:<br><br><span style="font-size: 1.8rem; font-weight: bold; color: #00796b; background: #e0f2f1; padding: 10px; border-radius: 8px; display: inline-block;">${numerosComprados.map(n => String(n).padStart(4, '0')).join(', ')}</span><br><br>Sua participação já está registrada na tabela. Validaremos o comprovante enviado pelo WhatsApp o mais breve possível!`;
                 
                 mostrarAviso("🏆 Sucesso!", msgSucesso, "sucesso");
                 
@@ -511,47 +595,10 @@
                 }
                 
             } finally {
-                btnConfirmarPix.innerText = "Sim, já paguei! Gerar números";
+                btnConfirmarPix.innerText = "Sim, já paguei e enviei! Gerar números";
                 btnConfirmarPix.disabled = false;
             }
         });
-
-        window.exportarExcel = async function () {
-
-    const snapshot = await getDocs(collection(db, "compras_rifa"));
-
-    const dados = [];
-
-    snapshot.forEach(doc => {
-
-        const d = doc.data();
-
-        dados.push({
-            Nome: d.nome || "",
-            Telefone: d.telefone || "",
-            Quantidade: d.quantidade || "",
-            Numeros: Array.isArray(d.numeros)
-                ? d.numeros.join(", ")
-                : "",
-            Data: d.data_compra
-                ? d.data_compra.toDate().toLocaleString("pt-BR")
-                : ""
-        });
-
-    });
-
-    const ws = XLSX.utils.json_to_sheet(dados);
-
-    const wb = XLSX.utils.book_new();
-
-    XLSX.utils.book_append_sheet(wb, ws, "Compradores");
-
-    XLSX.writeFile(wb, "Compradores_Rifa.xlsx");
-
-    console.log("Excel exportado com sucesso!");
-
-}
-        
     </script>
 </body>
 </html>
